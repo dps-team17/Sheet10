@@ -71,6 +71,6 @@ class EncryptedSocketConnection {
             sb.append(String.format("[%d]", message[i]));
         }
 
-        System.out.printf("%s: %s (%s)\n", action, sb.toString(), new String(message));
+        System.out.printf("%s: (%s)\n%s\n", action, new String(message), sb.toString());
     }
 }
