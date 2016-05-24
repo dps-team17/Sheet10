@@ -11,13 +11,13 @@ public class VigenereCipher {
     public static void main(String[] args) {
 
         String key = "Super Secret Super Long Keyword";
-        VigenereCipher encryptor = new VigenereCipher(key);
+        VigenereCipher cipher = new VigenereCipher(key);
         String secretMessage = "Hello Crypto!";
 
-        byte[] encrypted = encryptor.encrypt(secretMessage);
+        byte[] encrypted = cipher.encrypt(secretMessage);
 
         System.out.println(new String(encrypted));
-        System.out.println(encryptor.decrypt(encrypted));
+        System.out.println(cipher.decrypt(encrypted));
     }
 
     byte[] encrypt(String plain) {
