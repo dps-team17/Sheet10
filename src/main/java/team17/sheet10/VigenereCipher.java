@@ -1,37 +1,34 @@
 package team17.sheet10;
 
-public class SuperSecretEncryptor {
+public class VigenereCipher {
 
     private String key;
 
-    public SuperSecretEncryptor(String key) {
+    VigenereCipher(String key) {
         this.key = key;
     }
 
     public static void main(String[] args) {
 
         String key = "Super Secret Super Long Keyword";
-        SuperSecretEncryptor encryptor = new SuperSecretEncryptor(key);
+        VigenereCipher encryptor = new VigenereCipher(key);
         String secretMessage = "Hello Crypto!";
 
-        String encrypted = encryptor.encrypt(secretMessage);
+        byte[] encrypted = encryptor.encrypt(secretMessage);
 
-        System.out.println(encrypted);
+        System.out.println(new String(encrypted));
         System.out.println(encryptor.decrypt(encrypted));
     }
 
-    public String encrypt(String plain) {
+    byte[] encrypt(String plain) {
 
         byte[] input = plain.getBytes();
-        byte[] encrypted = xor(input, resizeKey(key, input.length));
-
-        return new String(encrypted);
+        return xor(input, resizeKey(key, input.length));
     }
 
-    public String decrypt(String encrypted) {
+    String decrypt(byte[] encrypted) {
 
-        byte[] input = encrypted.getBytes();
-        byte[] decrypted = xor(input, resizeKey(key, input.length));
+        byte[] decrypted = xor(encrypted, resizeKey(key, encrypted.length));
         return new String(decrypted);
     }
 

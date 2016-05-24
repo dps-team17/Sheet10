@@ -1,9 +1,6 @@
 package team17.sheet10;
 
-import team17.sheet10.helpers.KeyIn;
-
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class SuperSecretClient {
@@ -15,20 +12,17 @@ public class SuperSecretClient {
             System.exit(1);
         }
 
-        SuperSecretEncryptor encryptor = new SuperSecretEncryptor(args[0]);
-        String message;
-        String encrypted;
+        String key = args[0];
+        String host = "127.0.0.1";
+        int port = SuperSecretServer.SERVICE_PORT;
 
-        try (
-                Socket socket = new Socket("127.0.0.1", SuperSecretServer.SERVICE_PORT);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
-        ) {
+        try {
+            Socket socket = new Socket(host, port);
+            EncryptedSocketConnection connection = new EncryptedSocketConnection(socket, key);
+            connection.showEncryptedMessages(true);
+            EncryptedMessenger messenger = new EncryptedMessenger(connection);
 
-            while (!(message = KeyIn.inString("Message: ")).equals("exit")) {
-
-                encrypted = encryptor.encrypt(message);
-                out.println(encrypted);
-            }
+            messenger.start();
 
         } catch (IOException e) {
             e.printStackTrace();
