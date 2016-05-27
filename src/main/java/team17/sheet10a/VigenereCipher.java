@@ -1,4 +1,4 @@
-package team17.sheet10;
+package team17.sheet10a;
 
 public class VigenereCipher {
 
